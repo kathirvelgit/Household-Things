@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏺 Household-Things | LUMEN LIVING E-Commerce
 
-## Getting Started
+## 📖 Overview
 
-First, run the development server:
+**LUMEN LIVING** is a minimalist e-commerce web application dedicated to curated Scandinavian furniture, artisan ceramics, and architectural lighting. 
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+This project was visually prototyped using **Google Stitch** (extracting design tokens and generating responsive web components) and autonomously developed and agentically orchestrated inside **Google Antigravity IDE**.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ✨ Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+* 🏠 **Hero & Bestseller Showcase**: High-impact minimalist storefront featuring seasonal drops and highlighted Scandinavian product lines.
+* 🏺 **Product Catalog & Filtering**: Browse by categories (*Architectural Lighting*, *Artisan Ceramics*, *Lounge & Seating*, *Woven Textiles*) and filter by material or price.
+* 🛒 **Dynamic Cart System**: Reactive bag updates, item quantity adjustments, free shipping progress tracking, and persistent state.
+* 💳 **Multi-Step Checkout Flow**: Dedicated shipping details input, payment steps, and breakdown summaries.
+* 🤖 **AI Agent Rules & Guidance**: Pre-configured with workspace instructions (`AGENTS.md` & `CLAUDE.md`) tailored for agentic development workflows.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## ⚡ Built With Google AI Dev Tools
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This repository demonstrates the modern **Google AI Developer Toolchain**:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **🎨 Google Stitch**
+   * Designed component layouts, typography, and color tokens using Google Stitch.
+   * Streamlined UI prototypes into exportable React/Tailwind code structures.
 
-## Deploy on Vercel
+2. **🤖 Google Antigravity IDE**
+   * Built using agentic tasks in Google Antigravity.
+   * Leveraged autonomous agents to organize App Router routes (`/cart`, `/checkout`, `/products`), generate TypeScript types, and construct complex multi-step checkout components.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
