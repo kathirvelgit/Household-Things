@@ -31,3 +31,7 @@ This repository demonstrates the modern **Google AI Developer Toolchain**:
    * Leveraged autonomous agents to organize App Router routes (`/cart`, `/checkout`, `/products`), generate TypeScript types, and construct complex multi-step checkout components.
 
 ---
+🔗 Connect With Me
+
+💼 LinkedIn:
+[Kathirvel G](https://www.linkedin.com/in/kathirvel-gk/)
