@@ -196,7 +196,7 @@ export default function ProductDetailPage({ params }: Props) {
                   className={`flex-1 h-14 rounded-full text-[var(--font-size-label-lg)] font-semibold tracking-[var(--letter-spacing-label-lg)] flex items-center justify-center gap-[var(--spacing-space-xs)] transition-all shadow-md ${
                     addedToCart
                       ? "bg-[var(--color-on-tertiary-container)] text-white"
-                      : "bg-[var(--color-primary)] text-[var(--color-on-primary)] hover:bg-[var(--color-primary-container)]"
+                      : "bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-container)] hover:text-white"
                   }`}
                 >
                   <span className="material-symbols-outlined text-[1.2rem]">

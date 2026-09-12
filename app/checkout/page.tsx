@@ -71,7 +71,7 @@ export default function CheckoutPage() {
             <div className="flex flex-col sm:flex-row gap-[var(--spacing-space-sm)] justify-center">
               <Link
                 href="/"
-                className="h-12 px-[var(--spacing-space-xl)] rounded-full bg-[var(--color-primary)] text-[var(--color-on-primary)] text-[var(--font-size-label-lg)] font-semibold flex items-center justify-center"
+                className="h-12 px-[var(--spacing-space-xl)] rounded-full bg-[var(--color-primary)] text-white text-[var(--font-size-label-lg)] font-semibold flex items-center justify-center"
               >
                 Back to Home
               </Link>
@@ -97,12 +97,12 @@ export default function CheckoutPage() {
         {/* Page header */}
         <div className="w-full bg-[var(--color-surface-container-low)] border-b border-[var(--color-outline-variant)]">
           <div className="max-w-6xl mx-auto px-[var(--spacing-margin)] md:px-[var(--spacing-margin-lg)] py-[var(--spacing-space-xl)]">
-            <h1 className="text-[var(--font-size-headline-xl)] font-semibold leading-[var(--line-height-headline-xl)] tracking-[var(--letter-spacing-headline-xl)] text-[var(--color-primary)] mb-[var(--spacing-space-lg)]">
+            <h1 className="text-[clamp(2rem,5vw,3.5rem)] font-semibold leading-[1.1] tracking-[-0.03em] text-[var(--color-primary)] mb-[var(--spacing-space-lg)]">
               Checkout
             </h1>
 
             {/* Step indicator */}
-            <div className="flex items-center gap-0">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-0">
               {steps.map((step, i) => {
                 const isCompleted = i < stepIndex;
                 const isCurrent = step.id === currentStep;
@@ -113,7 +113,7 @@ export default function CheckoutPage() {
                         isCompleted
                           ? "bg-[var(--color-on-tertiary-container)] text-white shadow-sm"
                           : isCurrent
-                          ? "bg-[var(--color-primary)] text-[var(--color-on-primary)] shadow-md ring-2 ring-[var(--color-primary)] ring-offset-2"
+                          ? "bg-[var(--color-primary)] text-white shadow-md ring-2 ring-[var(--color-primary)] ring-offset-2"
                           : "bg-[var(--color-surface-container-high)] text-[var(--color-on-surface-variant)]"
                       }`}>
                         {isCompleted ? (
@@ -122,14 +122,14 @@ export default function CheckoutPage() {
                           <span className="material-symbols-outlined text-[1.1rem]">{step.icon}</span>
                         )}
                       </div>
-                      <span className={`text-[var(--font-size-label-sm)] font-semibold mt-1 ${
+                      <span className={`text-[var(--font-size-label-sm)] font-semibold mt-1 hidden sm:block ${
                         isCurrent ? "text-[var(--color-primary)]" : "text-[var(--color-on-surface-variant)]"
                       }`}>
                         {step.label}
                       </span>
                     </div>
                     {i < steps.length - 1 && (
-                      <div className={`w-16 sm:w-24 h-0.5 mb-5 mx-2 rounded-full transition-all ${
+                      <div className={`hidden sm:block w-16 md:w-24 h-0.5 mb-5 mx-2 rounded-full transition-all ${
                         i < stepIndex ? "bg-[var(--color-on-tertiary-container)]" : "bg-[var(--color-outline-variant)]"
                       }`} />
                     )}
@@ -183,7 +183,7 @@ export default function CheckoutPage() {
 
                   <button
                     type="submit"
-                    className="w-full h-14 rounded-full bg-[var(--color-primary)] text-[var(--color-on-primary)] text-[var(--font-size-label-lg)] font-semibold tracking-[var(--letter-spacing-label-lg)] flex items-center justify-center gap-[var(--spacing-space-xs)] shadow-md hover:bg-[var(--color-primary-container)] transition-all"
+                    className="w-full h-14 rounded-full bg-[var(--color-primary)] text-white text-[var(--font-size-label-lg)] font-semibold tracking-[var(--letter-spacing-label-lg)] flex items-center justify-center gap-[var(--spacing-space-xs)] shadow-md hover:bg-[var(--color-primary-container)] hover:text-white transition-all"
                   >
                     Continue to Payment
                     <span className="material-symbols-outlined text-[1.2rem]">arrow_forward</span>
@@ -227,18 +227,18 @@ export default function CheckoutPage() {
                     </div>
                   </div>
 
-                  <div className="flex gap-[var(--spacing-space-sm)]">
+                  <div className="flex flex-col sm:flex-row gap-[var(--spacing-space-sm)]">
                     <button
                       type="button"
                       onClick={() => setCurrentStep("shipping")}
-                      className="h-14 px-[var(--spacing-space-xl)] rounded-full border border-[var(--color-primary)] text-[var(--color-primary)] text-[var(--font-size-label-lg)] font-semibold flex items-center gap-[var(--spacing-space-xs)] hover:bg-[var(--color-surface-container)] transition-colors"
+                      className="h-14 px-[var(--spacing-space-xl)] rounded-full border border-[var(--color-primary)] text-[var(--color-primary)] text-[var(--font-size-label-lg)] font-semibold flex items-center justify-center gap-[var(--spacing-space-xs)] hover:bg-[var(--color-surface-container)] transition-colors"
                     >
                       <span className="material-symbols-outlined text-[1.2rem]">arrow_back</span>
                       Back
                     </button>
                     <button
                       type="submit"
-                      className="flex-1 h-14 rounded-full bg-[var(--color-primary)] text-[var(--color-on-primary)] text-[var(--font-size-label-lg)] font-semibold tracking-[var(--letter-spacing-label-lg)] flex items-center justify-center gap-[var(--spacing-space-xs)] shadow-md hover:bg-[var(--color-primary-container)] transition-all"
+                      className="flex-1 h-14 rounded-full bg-[var(--color-primary)] text-white text-[var(--font-size-label-lg)] font-semibold tracking-[var(--letter-spacing-label-lg)] flex items-center justify-center gap-[var(--spacing-space-xs)] shadow-md hover:bg-[var(--color-primary-container)] hover:text-white transition-all"
                     >
                       Review Order
                       <span className="material-symbols-outlined text-[1.2rem]">arrow_forward</span>
@@ -299,10 +299,10 @@ export default function CheckoutPage() {
                     </div>
                   </div>
 
-                  <div className="flex gap-[var(--spacing-space-sm)]">
+                  <div className="flex flex-col sm:flex-row gap-[var(--spacing-space-sm)]">
                     <button
                       onClick={() => setCurrentStep("payment")}
-                      className="h-14 px-[var(--spacing-space-xl)] rounded-full border border-[var(--color-primary)] text-[var(--color-primary)] text-[var(--font-size-label-lg)] font-semibold flex items-center gap-[var(--spacing-space-xs)] hover:bg-[var(--color-surface-container)] transition-colors"
+                      className="h-14 px-[var(--spacing-space-xl)] rounded-full border border-[var(--color-primary)] text-[var(--color-primary)] text-[var(--font-size-label-lg)] font-semibold flex items-center justify-center gap-[var(--spacing-space-xs)] hover:bg-[var(--color-surface-container)] transition-colors"
                     >
                       <span className="material-symbols-outlined text-[1.2rem]">arrow_back</span>
                       Back

@@ -47,7 +47,7 @@ export default function CartPage() {
               <span className="material-symbols-outlined text-[1rem]">chevron_right</span>
               <span className="text-[var(--color-on-surface)]">Shopping Bag</span>
             </nav>
-            <h1 className="text-[var(--font-size-headline-xl)] font-semibold leading-[var(--line-height-headline-xl)] tracking-[var(--letter-spacing-headline-xl)] text-[var(--color-primary)]">
+            <h1 className="text-[clamp(2rem,5vw,3.5rem)] font-semibold leading-[1.1] tracking-[-0.03em] text-[var(--color-primary)]">
               Your Shopping Bag
             </h1>
             <p className="text-[var(--font-size-body-md)] text-[var(--color-on-surface-variant)] mt-[var(--spacing-space-xs)]">
@@ -68,7 +68,7 @@ export default function CartPage() {
               </p>
               <Link
                 href="/products"
-                className="inline-flex items-center gap-[var(--spacing-space-xs)] h-12 px-[var(--spacing-space-xl)] rounded-full bg-[var(--color-primary)] text-[var(--color-on-primary)] text-[var(--font-size-label-lg)] font-semibold"
+                className="inline-flex items-center gap-[var(--spacing-space-xs)] h-12 px-[var(--spacing-space-xl)] rounded-full bg-[var(--color-primary)] text-white text-[var(--font-size-label-lg)] font-semibold"
               >
                 Continue Shopping
                 <span className="material-symbols-outlined text-[1.2rem]">arrow_forward</span>
@@ -82,12 +82,12 @@ export default function CartPage() {
                 {cartItems.map(({ product, quantity, color }, idx) => (
                   <div
                     key={product.id}
-                    className="flex gap-[var(--spacing-space-lg)] bg-[var(--color-surface-container-lowest)] rounded-[var(--radius-DEFAULT)] p-[var(--spacing-space-lg)] shadow-sm"
+                    className="flex flex-col gap-[var(--spacing-space-md)] sm:flex-row sm:gap-[var(--spacing-space-lg)] bg-[var(--color-surface-container-lowest)] rounded-[var(--radius-DEFAULT)] p-[var(--spacing-space-md)] sm:p-[var(--spacing-space-lg)] shadow-sm"
                   >
                     {/* Thumbnail */}
                     <Link
                       href={`/products/${product.slug}`}
-                      className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-[var(--radius-sm)] overflow-hidden bg-[var(--color-surface-container-low)] flex-shrink-0"
+                      className="relative w-full h-48 sm:w-28 sm:h-28 md:w-36 md:h-36 rounded-[var(--radius-sm)] overflow-hidden bg-[var(--color-surface-container-low)] flex-shrink-0"
                     >
                       <Image
                         src={product.images[0]!}
@@ -130,9 +130,9 @@ export default function CartPage() {
                         </button>
                       </div>
 
-                      <div className="flex items-center justify-between mt-auto pt-[var(--spacing-space-sm)]">
+                      <div className="flex flex-col gap-[var(--spacing-space-sm)] sm:flex-row sm:items-center sm:justify-between mt-auto pt-[var(--spacing-space-sm)]">
                         {/* Quantity stepper */}
-                        <div className="inline-flex items-center rounded-full border border-[var(--color-outline-variant)] overflow-hidden">
+                        <div className="inline-flex items-center rounded-full border border-[var(--color-outline-variant)] overflow-hidden self-start">
                           <button
                             onClick={() => updateQty(idx, -1)}
                             className="w-9 h-9 flex items-center justify-center text-[var(--color-on-surface)] hover:bg-[var(--color-surface-container)] transition-colors"
@@ -206,7 +206,7 @@ export default function CartPage() {
 
                   <Link
                     href="/checkout"
-                    className="w-full h-14 rounded-full bg-[var(--color-primary)] text-[var(--color-on-primary)] text-[var(--font-size-label-lg)] font-semibold tracking-[var(--letter-spacing-label-lg)] flex items-center justify-center gap-[var(--spacing-space-xs)] shadow-md hover:bg-[var(--color-primary-container)] transition-all mb-[var(--spacing-space-md)]"
+                    className="w-full h-14 rounded-full bg-[var(--color-primary)] text-white text-[var(--font-size-label-lg)] font-semibold tracking-[var(--letter-spacing-label-lg)] flex items-center justify-center gap-[var(--spacing-space-xs)] shadow-md hover:bg-[var(--color-primary-container)] hover:text-white transition-all mb-[var(--spacing-space-md)]"
                   >
                     Proceed to Checkout
                     <span className="material-symbols-outlined text-[1.2rem]">arrow_forward</span>

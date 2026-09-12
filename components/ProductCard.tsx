@@ -1,6 +1,11 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Product } from "@/lib/types";
+
+const WISHLIST_STORAGE_KEY = "lumen-wishlist";
 
 interface ProductCardProps {
   product: Product;
@@ -8,6 +13,12 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product, className = "" }: ProductCardProps) {
+  const [isWishlisted, setIsWishlisted] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    const saved = JSON.parse(localStorage.getItem(WISHLIST_STORAGE_KEY) ?? "[]") as string[];
+    return saved.includes(product.slug);
+  });
+
   const badgeColorClass =
     product.badgeColor === "tertiary"
       ? "text-[var(--color-on-tertiary-container)]"
@@ -37,9 +48,28 @@ export default function ProductCard({ product, className = "" }: ProductCardProp
         {/* Wishlist */}
         <button
           aria-label="Add to Wishlist"
-          className="absolute top-[var(--spacing-space-sm)] right-[var(--spacing-space-sm)] w-9 h-9 rounded-full bg-[rgba(250,249,246,0.9)] hover:bg-[var(--color-surface)] backdrop-blur-md flex items-center justify-center text-[var(--color-on-surface)] transition-colors shadow-sm"
+          onClick={() => {
+            const saved = JSON.parse(localStorage.getItem(WISHLIST_STORAGE_KEY) ?? "[]") as string[];
+            const next = saved.includes(product.slug)
+              ? saved.filter((item) => item !== product.slug)
+              : [...saved, product.slug];
+
+            localStorage.setItem(WISHLIST_STORAGE_KEY, JSON.stringify(next));
+            setIsWishlisted(next.includes(product.slug));
+            window.dispatchEvent(new Event("lumen-wishlist-change"));
+          }}
+          className={`absolute top-[var(--spacing-space-sm)] right-[var(--spacing-space-sm)] w-9 h-9 rounded-full backdrop-blur-md flex items-center justify-center transition-colors shadow-sm ${
+            isWishlisted
+              ? "bg-[var(--color-secondary)] text-[var(--color-on-secondary)]"
+              : "bg-[rgba(250,249,246,0.9)] hover:bg-[var(--color-surface)] text-[var(--color-on-surface)]"
+          }`}
         >
-          <span className="material-symbols-outlined text-[1.1rem]">favorite</span>
+          <span
+            className="material-symbols-outlined text-[1.1rem]"
+            style={{ fontVariationSettings: isWishlisted ? "'FILL' 1" : "'FILL' 0" }}
+          >
+            favorite
+          </span>
         </button>
       </div>
 

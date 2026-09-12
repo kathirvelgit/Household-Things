@@ -47,10 +47,10 @@ export default function ProductsPage() {
               <span className="material-symbols-outlined text-[1rem]">chevron_right</span>
               <span className="text-[var(--color-on-surface)]">Products</span>
             </nav>
-            <h1 className="text-[var(--font-size-headline-xl)] font-semibold leading-[var(--line-height-headline-xl)] tracking-[var(--letter-spacing-headline-xl)] text-[var(--color-primary)]">
+            <h1 className="text-[clamp(2rem,5vw,3.5rem)] font-semibold leading-[1.1] tracking-[-0.03em] text-[var(--color-primary)]">
               All Objects
             </h1>
-            <p className="text-[var(--font-size-body-lg)] leading-[var(--line-height-body-lg)] text-[var(--color-on-surface-variant)] mt-[var(--spacing-space-sm)]">
+            <p className="text-sm sm:text-[var(--font-size-body-lg)] leading-[var(--line-height-body-lg)] text-[var(--color-on-surface-variant)] mt-[var(--spacing-space-sm)]">
               {filtered.length} piece{filtered.length !== 1 ? "s" : ""} — crafted for considered living
             </p>
           </div>
@@ -82,7 +82,7 @@ export default function ProductsPage() {
                           onClick={() => setSelectedCategory(val)}
                           className={`text-left px-[var(--spacing-space-md)] py-[var(--spacing-space-sm)] rounded-full text-[var(--font-size-body-sm)] font-medium transition-colors ${
                             isActive
-                              ? "bg-[var(--color-primary)] text-[var(--color-on-primary)]"
+                              ? "bg-[var(--color-primary)] text-white"
                               : "text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] hover:bg-[var(--color-surface-container)]"
                           }`}
                         >
@@ -141,7 +141,7 @@ export default function ProductsPage() {
             {/* Product grid */}
             <div className="flex-1">
               {/* Sort bar */}
-              <div className="flex items-center justify-between mb-[var(--spacing-space-lg)]">
+              <div className="flex flex-col gap-[var(--spacing-space-sm)] sm:flex-row sm:items-center sm:justify-between mb-[var(--spacing-space-lg)]">
                 <p className="text-[var(--font-size-body-sm)] text-[var(--color-on-surface-variant)]">
                   Showing <span className="font-semibold text-[var(--color-on-surface)]">{filtered.length}</span> items
                 </p>
@@ -150,7 +150,7 @@ export default function ProductsPage() {
                   <select
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
-                    className="h-10 pl-[var(--spacing-space-md)] pr-8 rounded-full bg-[var(--color-surface-container-low)] text-[var(--color-on-surface)] text-[var(--font-size-body-sm)] focus:outline-none focus:ring-1 focus:ring-[var(--color-primary)] appearance-none cursor-pointer"
+                    className="h-10 pl-[var(--spacing-space-md)] pr-8 rounded-full bg-[var(--color-surface-container-low)] text-[var(--color-on-surface)] text-[var(--font-size-body-sm)] focus:outline-none focus:ring-1 focus:ring-[var(--color-primary)] appearance-none cursor-pointer w-full sm:w-auto"
                   >
                     {sortOptions.map((opt) => (
                       <option key={opt.value} value={opt.value}>{opt.label}</option>
