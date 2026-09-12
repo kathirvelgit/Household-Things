@@ -1,26 +1,156 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* ── Colors ── */
+  --color-primary: #080d13;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #1e232a;
+  --color-on-primary-container: #858a93;
+  --color-inverse-primary: #c2c7d0;
+  --color-primary-fixed: #dee2ec;
+  --color-primary-fixed-dim: #c2c7d0;
+  --color-on-primary-fixed: #171c23;
+  --color-on-primary-fixed-variant: #42474f;
+
+  --color-secondary: #904d00;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #fe932c;
+  --color-on-secondary-container: #663500;
+  --color-secondary-fixed: #ffdcc3;
+  --color-secondary-fixed-dim: #ffb77d;
+  --color-on-secondary-fixed: #2f1500;
+  --color-on-secondary-fixed-variant: #6e3900;
+
+  --color-tertiary: #001008;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #00291a;
+  --color-on-tertiary-container: #199d6f;
+  --color-tertiary-fixed: #85f8c4;
+  --color-tertiary-fixed-dim: #68dba9;
+  --color-on-tertiary-fixed: #002114;
+  --color-on-tertiary-fixed-variant: #005137;
+
+  --color-surface: #faf9f6;
+  --color-surface-dim: #dbdad7;
+  --color-surface-bright: #faf9f6;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f4f3f1;
+  --color-surface-container: #efeeeb;
+  --color-surface-container-high: #e9e8e5;
+  --color-surface-container-highest: #e3e2e0;
+  --color-on-surface: #1a1c1a;
+  --color-on-surface-variant: #45474b;
+  --color-inverse-surface: #2f312f;
+  --color-inverse-on-surface: #f2f1ee;
+  --color-surface-variant: #e3e2e0;
+  --color-surface-tint: #5a5f67;
+
+  --color-outline: #75777b;
+  --color-outline-variant: #c5c6cb;
+
+  --color-background: #faf9f6;
+  --color-on-background: #1a1c1a;
+
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
+
+  /* ── Typography ── */
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --font-size-display-lg: 3.5rem;
+  --line-height-display-lg: 4rem;
+  --letter-spacing-display-lg: -0.03em;
+
+  --font-size-display-lg-mobile: 2.25rem;
+  --line-height-display-lg-mobile: 2.75rem;
+  --letter-spacing-display-lg-mobile: -0.02em;
+
+  --font-size-headline-xl: 2.5rem;
+  --line-height-headline-xl: 3rem;
+  --letter-spacing-headline-xl: -0.025em;
+
+  --font-size-headline-xl-mobile: 1.75rem;
+  --line-height-headline-xl-mobile: 2.25rem;
+
+  --font-size-headline-lg: 2rem;
+  --line-height-headline-lg: 2.5rem;
+  --letter-spacing-headline-lg: -0.02em;
+
+  --font-size-headline-md: 1.5rem;
+  --line-height-headline-md: 2rem;
+  --letter-spacing-headline-md: -0.015em;
+
+  --font-size-headline-sm: 1.25rem;
+  --line-height-headline-sm: 1.75rem;
+  --letter-spacing-headline-sm: -0.01em;
+
+  --font-size-body-lg: 1.125rem;
+  --line-height-body-lg: 1.75rem;
+  --letter-spacing-body-lg: -0.005em;
+
+  --font-size-body-md: 1rem;
+  --line-height-body-md: 1.6rem;
+
+  --font-size-body-sm: 0.875rem;
+  --line-height-body-sm: 1.4rem;
+  --letter-spacing-body-sm: 0.005em;
+
+  --font-size-label-lg: 0.875rem;
+  --line-height-label-lg: 1.25rem;
+  --letter-spacing-label-lg: 0.02em;
+
+  --font-size-label-md: 0.75rem;
+  --line-height-label-md: 1rem;
+  --letter-spacing-label-md: 0.04em;
+
+  --font-size-label-sm: 0.6875rem;
+  --line-height-label-sm: 0.875rem;
+  --letter-spacing-label-sm: 0.06em;
+
+  /* ── Spacing ── */
+  --spacing-space-xs: 0.25rem;
+  --spacing-space-sm: 0.5rem;
+  --spacing-space-md: 1rem;
+  --spacing-space-lg: 1.5rem;
+  --spacing-space-xl: 2.5rem;
+  --spacing-gutter-sm: 1rem;
+  --spacing-gutter: 1.5rem;
+  --spacing-gutter-lg: 2rem;
+  --spacing-margin-sm: 1rem;
+  --spacing-margin: 1.5rem;
+  --spacing-margin-lg: 4rem;
+
+  /* ── Border Radius ── */
+  --radius-sm: 0.5rem;
+  --radius-DEFAULT: 1rem;
+  --radius-md: 1.5rem;
+  --radius-lg: 2rem;
+  --radius-xl: 3rem;
+  --radius-full: 9999px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ── Base resets ── */
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html, body {
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-body-md);
+  line-height: var(--line-height-body-md);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+/* ── Scrollbar hide ── */
+::-webkit-scrollbar { display: none; }
+* { scrollbar-width: none; }
