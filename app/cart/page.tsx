@@ -1,30 +1,73 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { products } from "@/lib/data";
 
-// Mock cart items from the first 3 products
-const initialCartItems = [
-  { product: products[0]!, quantity: 1, color: products[0]!.colors[0]! },
-  { product: products[1]!, quantity: 1, color: products[1]!.colors[0]! },
-  { product: products[3]!, quantity: 2, color: products[3]!.colors[0]! },
-];
+const CART_STORAGE_KEY = "lumen-cart";
 
 export default function CartPage() {
-  const [cartItems, setCartItems] = useState(initialCartItems);
+  const [cartItems, setCartItems] = useState<Array<{ product: (typeof products)[number]; quantity: number; color: { name: string; hex: string } }>>([]);
+
+  useEffect(() => {
+    const syncCart = () => {
+      const saved = JSON.parse(localStorage.getItem(CART_STORAGE_KEY) ?? "[]") as Array<{
+        slug: string;
+        quantity: number;
+        color: string;
+        name: string;
+        price: number;
+        image: string;
+      }>;
+
+      const items = saved
+        .map((item) => {
+          const product = products.find((entry) => entry.slug === item.slug);
+          if (!product) return null;
+          return {
+            product,
+            quantity: item.quantity,
+            color: product.colors.find((swatch) => swatch.name === item.color) ?? product.colors[0],
+          };
+        })
+        .filter(Boolean) as Array<{ product: (typeof products)[number]; quantity: number; color: { name: string; hex: string } }>;
+
+      setCartItems(items);
+    };
+
+    syncCart();
+    window.addEventListener("lumen-cart-change", syncCart);
+
+    return () => window.removeEventListener("lumen-cart-change", syncCart);
+  }, []);
 
   const updateQty = (idx: number, delta: number) => {
-    setCartItems((prev) =>
-      prev
+    setCartItems((prev) => {
+      const next = prev
         .map((item, i) =>
           i === idx ? { ...item, quantity: Math.max(0, item.quantity + delta) } : item
         )
-        .filter((item) => item.quantity > 0)
-    );
+        .filter((item) => item.quantity > 0);
+
+      localStorage.setItem(
+        CART_STORAGE_KEY,
+        JSON.stringify(
+          next.map(({ product, quantity, color }) => ({
+            slug: product.slug,
+            quantity,
+            color: color.name,
+            name: product.name,
+            price: product.price,
+            image: product.images[0] ?? "",
+          }))
+        )
+      );
+      window.dispatchEvent(new Event("lumen-cart-change"));
+      return next;
+    });
   };
 
   const subtotal = cartItems.reduce(

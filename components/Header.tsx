@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const WISHLIST_STORAGE_KEY = "lumen-wishlist";
+const CART_STORAGE_KEY = "lumen-cart";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -16,21 +16,22 @@ const navLinks = [
 export default function Header() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [wishlist, setWishlist] = useState<string[]>([]);
+  const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
-    const syncWishlist = () => {
-      const stored = localStorage.getItem(WISHLIST_STORAGE_KEY);
-      setWishlist(stored ? JSON.parse(stored) : []);
+    const syncCart = () => {
+      const stored = localStorage.getItem(CART_STORAGE_KEY);
+      const cart = stored ? JSON.parse(stored) : [];
+      setCartCount(
+        cart.reduce((sum: number, item: { quantity?: number }) => sum + (item.quantity ?? 0), 0)
+      );
     };
 
-    syncWishlist();
-    window.addEventListener("lumen-wishlist-change", syncWishlist);
+    syncCart();
+    window.addEventListener("lumen-cart-change", syncCart);
 
-    return () => window.removeEventListener("lumen-wishlist-change", syncWishlist);
+    return () => window.removeEventListener("lumen-cart-change", syncCart);
   }, []);
-
-  const isWishlisted = wishlist.length > 0;
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
@@ -96,44 +97,20 @@ export default function Header() {
               <span className="material-symbols-outlined text-[1.25rem]">search</span>
             </button>
 
-            {/* Wishlist */}
-            <button
-              aria-label="Wishlist"
-              onClick={() => {
-                if (wishlist.length > 0) {
-                  localStorage.setItem(WISHLIST_STORAGE_KEY, JSON.stringify([]));
-                  window.dispatchEvent(new Event("lumen-wishlist-change"));
-                }
-              }}
-              className={`relative w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-full transition-colors ${
-                isWishlisted
-                  ? "bg-[var(--color-surface-container-high)] text-[var(--color-secondary)]"
-                  : "text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] hover:bg-[var(--color-surface-container-high)]"
-              }`}
-            >
-              <span
-                className="material-symbols-outlined text-[1.25rem]"
-                style={{ fontVariationSettings: isWishlisted ? "'FILL' 1" : "'FILL' 0" }}
-              >
-                favorite
-              </span>
-              <span className="absolute top-1.5 right-1.5 min-w-[1.125rem] h-[1.125rem] px-1 rounded-full bg-[var(--color-secondary)] text-[var(--color-on-secondary)] text-[var(--font-size-label-sm)] font-semibold flex items-center justify-center">
-                {wishlist.length}
-              </span>
-            </button>
-
             {/* Cart */}
             <Link
               href="/cart"
               aria-label="Shopping Bag"
-              className="flex items-center gap-[var(--spacing-space-xs)] bg-[var(--color-surface-container-low)] hover:bg-[var(--color-surface-container-high)] transition-colors rounded-full px-2.5 py-1.5 sm:px-[var(--spacing-space-md)] sm:py-[var(--spacing-space-xs)]"
+              className="relative flex items-center justify-center w-10 h-10 bg-[var(--color-surface-container-low)] hover:bg-[var(--color-surface-container-high)] transition-colors rounded-full"
             >
               <span className="material-symbols-outlined text-[1.25rem] text-[var(--color-on-surface)]">
                 local_mall
               </span>
-              <span className="text-[var(--font-size-label-md)] font-semibold text-[var(--color-on-surface)]">
-                3
-              </span>
+              {cartCount > 0 && (
+                <span className="absolute -top-1.5 -right-1.5 min-w-[1.125rem] h-[1.125rem] px-1 rounded-full bg-[var(--color-secondary)] text-[var(--color-on-secondary)] text-[var(--font-size-label-sm)] font-semibold flex items-center justify-center">
+                  {cartCount}
+                </span>
+              )}
             </Link>
 
             {/* Mobile hamburger */}

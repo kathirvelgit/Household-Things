@@ -14,6 +14,8 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
+const CART_STORAGE_KEY = "lumen-cart";
+
 const accordionItems = [
   { label: "Description", icon: "article" },
   { label: "Materials & Craftsmanship", icon: "precision_manufacturing" },
@@ -36,6 +38,39 @@ export default function ProductDetailPage({ params }: Props) {
   const related = getRelatedProducts(product.related ?? []);
 
   const handleAddToCart = () => {
+    const saved = JSON.parse(localStorage.getItem(CART_STORAGE_KEY) ?? "[]") as Array<{
+      slug: string;
+      quantity: number;
+      color: string;
+      name: string;
+      price: number;
+      image: string;
+    }>;
+
+    const colorName = product.colors[selectedColor]?.name ?? "Default";
+    const existingIndex = saved.findIndex(
+      (item) => item.slug === product.slug && item.color === colorName
+    );
+
+    const updatedCart = [...saved];
+    if (existingIndex >= 0) {
+      updatedCart[existingIndex] = {
+        ...updatedCart[existingIndex],
+        quantity: (updatedCart[existingIndex]?.quantity ?? 0) + quantity,
+      };
+    } else {
+      updatedCart.push({
+        slug: product.slug,
+        quantity,
+        color: colorName,
+        name: product.name,
+        price: product.price,
+        image: product.images[0] ?? "",
+      });
+    }
+
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(updatedCart));
+    window.dispatchEvent(new Event("lumen-cart-change"));
     setAddedToCart(true);
     setTimeout(() => setAddedToCart(false), 2000);
   };
